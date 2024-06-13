@@ -8,12 +8,12 @@
 </head>
 <body>
 <div class="container-all">
-    <header>
+    <header class="header-base">
         <nav class="nav-header">
             <h1>
                 <a style="color: #fafafa; text-decoration: none;" href="{{ url_for('blog.index') }}">Blog personal</a>
             </h1>
-            <div>
+            <div class="nav-header-links">
                 <ul>
                     <li><a href="{{ url_for('blog.index') }}">Inicio</a></li>
                     <li><a href="{{ url_for('admin.post_form') }}">Crear post</a></li>

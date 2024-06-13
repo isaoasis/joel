@@ -1,11 +1,13 @@
 /* main.css */
-
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .container-all {
     font-family: 'Arial', sans-serif;
     background-color: #e9ecef;
     color: #333;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -173,11 +175,47 @@ footer {
     padding: 10px 0;
     background-color: #343a40;
     color: white;
-    width: 100%;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
     min-height: 400px;
 }
 .cont-container{
     width: 100%;
     min-height: 100vh;
+}
+#titulo-index {
+    height: 100px;
+}
+@media (max-width: 768px) {
+    .header-base {
+        height: 125px;
+        position: sticky;
+        top: -56px;
+    }
+    .nav-header {
+        width: 98%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .nav-header-links{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        position: relative;
+    }
+    .nav-header-links ul {
+        width: 100%;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        
+        position: sticky;
+        top: 0;
+    }
+    .nav-header-links ul li {
+        margin: 0 0;
+    }
 }
