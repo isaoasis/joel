@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+
+    <header>
+        <nav class="nav-header">
+            <h1>
+                <a style="color: #fafafa; text-decoration: none;" href="{{ url_for('blog.index') }}">Blog personal</a>
+            </h1>
+            <div>
+                <ul>
+                    <li><a href="{{ url_for('blog.index') }}">Inicio</a></li>
+                    <li><a href="{{ url_for('admin.post_form') }}">Crear post</a></li>
+                    <li><a href="{{ url_for('auth.login') }}">Iniciar Sesión</a></li>
+                    <li><a href="{{ url_for('auth.register') }}">Registrarme</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div>
+        <p>TEN EN CUENTA QUE ES UNA PÁGINA EN DESARROLLO Y AÚN NO LE FALTAN MUCHAS FUNCIONES</p>
+    </div>
+    <div class="cont-container">
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+    <footer>
+        Creado por: &copy; Joel Diaz
+    </footer>
+</body>
+</html>

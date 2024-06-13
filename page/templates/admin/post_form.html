@@ -1,0 +1,42 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+    {% if form.title.data %}
+        {{ form.title.data }}
+    {% else %}
+        Nueva publicación
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>{% if form.title.data %}Editar Publicación{% else %}Nueva publicación{% endif %}</h1>
+    </header>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.title.label }}
+            {{ form.title(size=128) }}<br>
+            {% for error in form.title.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.title_slug.label }}
+            {{ form.title_slug(size=128) }}<br>
+            {% for error in form.title_slug.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.content.label }}
+            {{ form.content }}<br>
+            {% for error in form.content.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base_template.html" %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+
+<header>
+    <h2>Últimas publicaciones</h2>
+</header>
+    {% for post in posts %}
+    <div class="post">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <div class="post-content">
+            <p>{{ post.content[:200] }}...</p>
+            <a href="{{ url_for('blog.show_post', slug=post.title_slug) }}">Leer más</a>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
