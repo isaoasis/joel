@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    
+    <link rel="shortcut icon" href="{%block favicon %}{% endblock %}" type="image/x-icon">
 </head>
+
 <body>
 <div class="container-all">
+    <body>
     <header class="header-base">
         <nav class="nav-header">
             <h1>
@@ -15,10 +19,16 @@
             </h1>
             <div class="nav-header-links">
                 <ul>
-                    <li><a href="{{ url_for('blog.index') }}">Inicio</a></li>
-                    <li><a href="{{ url_for('admin.post_form') }}">Crear post</a></li>
-                    <li><a href="{{ url_for('auth.login') }}">Iniciar Sesión</a></li>
-                    <li><a href="{{ url_for('auth.register') }}">Registrarme</a></li>
+                    {% if current_user.is_anonymous %}
+                        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                        <li> | </li>
+                        <li><a href="{{ url_for('auth.register') }}">Registrar</a></li>
+                        {% else %}
+                        <li><a href="{{ url_for('admin.post_form') }}">Crear post</a></li>
+                        <li><a href="{{ url_for('blog.user_profile', username=current_user.name)}}">{{ current_user.name }}</a></li>
+                        <li> | </li>
+                        <li><a href="{{ url_for('auth.logout') }}">Cerrar sesión</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
