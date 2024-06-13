@@ -1,13 +1,18 @@
 {
-    "version": 2,
-    "builds": [{ "src": "app.py", "use": "@vercel/python" }],
-    "routes": [
+  "version": 2,
+  "builds": [
+      { "src": "app.py", "use": "@vercel/python" }
+  ],
+  "routes": [
       {
-        "src": "/(.*)",
-        "dest": "app.py"
+          "src": "/(.*)",
+          "dest": "app.py",
+          "headers": {
+              "cache-control": "no-store, no-cache, must-revalidate, max-age=0"
+          }
       }
-    ],
-    "env": {
+  ],
+  "env": {
       "FLASK_ENV": "production"
-    }
   }
+}
