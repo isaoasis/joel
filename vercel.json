@@ -6,10 +6,7 @@
   "routes": [
       {
           "src": "/(.*)",
-          "dest": "app.py",
-          "headers": {
-              "cache-control": "no-store, no-cache, must-revalidate, max-age=0"
-          }
+          "dest": "app.py"
       }
   ],
   "env": {
