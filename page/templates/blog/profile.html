@@ -11,17 +11,17 @@
     </div>
     <div class="profile-content">
         <h3>Publicaciones Recientes</h3>
-        <ul style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); background-color: #f2f2f2; padding: 10px 10px 0px 10px;" class="post-list">
-            {% for post in user_posts %}
+        {% for post in user_posts %}
+            <ul style="box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); background-color: #f2f2f2; padding: 10px 10px 0px 10px;" class="post-list">
                 <li class="post-item">
                     <h4>{{ post.title }}</h4>
                     <p>{{ post.content[:300] }}</p>
                     <a href="{{ url_for('blog.show_post', slug=post.title_slug) }}">Leer más</a>
                     <p>Autor: <a href="{{ url_for('blog.user_profile', username=post.author)}}">{{ post.author }}</a></p>
                 </li>
-            {% endfor %}
-            <hr>
-        </ul>
+            </ul>
+            <hr style="margin: 4px 0">
+        {% endfor %}
         </div>
 </div>
 {% endblock %}
