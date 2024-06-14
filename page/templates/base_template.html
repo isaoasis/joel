@@ -23,7 +23,7 @@
                     {% if current_user.is_anonymous %}
                         <div style="display:flex;">
                             <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-                            <li> | </li>
+                            <li style="margin:0 6px;"> | </li>
                             <li><a href="{{ url_for('auth.register') }}">Registrar</a></li>
                         </div>
                         
