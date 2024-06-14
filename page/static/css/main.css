@@ -305,4 +305,7 @@ footer {
     .profile-container{
         width: 100%;
     }
+    .profile-content{
+        padding: 20px 0;
+    }
 }
