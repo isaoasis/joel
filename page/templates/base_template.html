@@ -21,7 +21,7 @@
                 <ul>
                         <li><a href="{{ url_for('blog.index') }}">Inicio</a></li>
                     {% if current_user.is_anonymous %}
-                        <div>
+                        <div style="display:flex;">
                             <li><a href="{{ url_for('auth.login') }}">Login</a></li>
                             <li> | </li>
                             <li><a href="{{ url_for('auth.register') }}">Registrar</a></li>
