@@ -1,6 +1,7 @@
 from flask import render_template, Blueprint, redirect, url_for
 from page.models.forms import PostForm
 from flask_login import login_required, current_user
+import re  # Importa el módulo re para usar expresiones regulares
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -31,6 +32,9 @@ posts = [
     },
 ]
 
+def convert_to_slug(title):
+    # Usa expresiones regulares para reemplazar espacios con guiones y convierte todo a minúsculas
+    return re.sub(r'\s+', '-', title).lower()
 
 @admin.route("/post/", methods=['GET', 'POST'], defaults={'post_id': None})
 @admin.route("/post/<string:post_id>/", methods=['GET', 'POST'])
@@ -39,7 +43,7 @@ def post_form(post_id):
     form = PostForm()
     if form.validate_on_submit():
         title = form.title.data
-        title_slug = form.title_slug.data
+        title_slug = convert_to_slug(form.title_slug.data) # Llama a la función para obtener el title_slug
         content = form.content.data
         author = current_user.name if current_user.is_authenticated else "Invitado"
         post = {'title': title, 'title_slug': title_slug, 'content': content, 'author': author}
