@@ -299,4 +299,10 @@ footer {
     .nav-header-links ul li {
         margin: 0 0;
     }
+    .container {
+        width: 95%;
+    }
+    .profile-container{
+        width: 100%;
+    }
 }
