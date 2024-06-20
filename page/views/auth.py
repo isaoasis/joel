@@ -1,57 +1,51 @@
 from flask import render_template, request, redirect, url_for, Blueprint
 from page.models.users import User 
 from page.models.forms import SignupForm, LoginForm
-from page import login_manager
+from page import login_manager, db
 from flask_login import login_user, logout_user, current_user 
+
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 
-users = [
-    User(1, 'pepito', 'pepito@gmail.com', '1234'),
-    User(2, 'juan', 'juan@gmail.com', '1234'),
-    User(3, 'fulano', 'fulano@gmail.com', '1234'),
-    User(4, 'mengano', 'mengano@gmail.com', '1234'),
-]
 
-def get_user(email):
-    for user in users:
-        if user.email==email:
-            return user
-        return None
-    
 @login_manager.user_loader
 def load_user(user_id):
-    for user in users:
-        if user.id == int(user_id):
-            return user
-    return None
+    return User.get_by_id(int(user_id))
 
 @auth.route("/register", methods=["GET", "POST"])
-def register():
+def show_register():
     if current_user.is_authenticated:
-        return redirect(url_for('blog.index'))
+        return redirect(url_for('index'))
     form = SignupForm()
+    error = None
     if form.validate_on_submit():
         name = form.name.data
         email = form.email.data
         password = form.password.data
-        # Creamos el usuario y lo guardamos
-        user = User(len(users) + 1, name, email, password)
-        users.append(user)
-        # Dejamos al usuario logueado
-        login_user(user, remember=True)
-        next_page = request.args.get('next', None)
-        if not next_page or url_for(next_page).netloc != '':
-            next_page = url_for('blog.index')
-        return redirect(next_page)
-    return render_template("auth/signup_form.html", form=form)
+        # Comprobamos que no hay ya un usuario con ese email
+        user = User.get_by_email(email)
+        if user is not None:
+            error = f'Este email ya está en uso.'
+        else:
+            # Creamos el usuario y lo guardamos
+            user = User(name=name, email=email)
+            user.set_password(password)
+            user.save()
+            # Dejamos al usuario logueado
+            login_user(user, remember=True)
+            next_page = request.args.get('next', None)
+            if not next_page or url_for(next_page).netloc != '':
+                next_page = url_for('blog.index')
+            return redirect(next_page)
+    return render_template("auth/signup_form.html", form=form, error=error)
+
 
 @auth.route('/login', methods=['GET', 'POST'])
-def login():
+def show_login():
     if current_user.is_authenticated:
         return redirect(url_for('blog.index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = get_user(form.email.data)
+        user = User.get_by_email(form.email.data)
         if user is not None and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             next_page = request.args.get('next')

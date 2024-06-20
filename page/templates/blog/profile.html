@@ -16,7 +16,7 @@
                 <li class="post-item">
                     <h4>{{ post.title }}</h4>
                     <p>{{ post.content[:300] }}</p>
-                    <a href="{{ url_for('blog.show_post', slug=post.title_slug) }}">Leer más</a>
+                    <a href="{{ post.public_url() }}">Leer más</a>
                     <p>Autor: <a href="{{ url_for('blog.user_profile', username=post.author)}}">{{ post.author }}</a></p>
                 </li>
             </ul>
